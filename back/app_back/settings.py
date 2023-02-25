@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-e1v3^6^i2b_vn7m4f6(78c(j_r$zqsrtk0ugg-foddufs$nxs(
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'api.cerealwhay.ru'
+    'api.cerealwhay.ru',
+    '127.0.0.1',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.cerealwhay.ru']

@@ -49,7 +49,12 @@ export const app = Vue.createApp({
             pause: false,
             isNewGame: true,
             score: null,
+
+            records: []
         }
+    },
+    mounted() {
+        this.getRecords()
     },
     watch: {
         isNewGame(b) {
@@ -130,6 +135,12 @@ export const app = Vue.createApp({
         changeControls(e) {
             this.playerController.setControls(e)
         },
+
+        getRecords() {
+            axios
+                .get('/get-records')
+                .then(response => console.log(response));
+        }
     },
     // language=Vue
     template: `
@@ -143,8 +154,8 @@ export const app = Vue.createApp({
           @start="init"
           @resume="pause = false"
       ></MainMenu>
-      
-      <Overlay 
+
+      <Overlay
           v-show="!pause && !isNewGame"
           :score="score"
       ></Overlay>
@@ -155,7 +166,7 @@ export const app = Vue.createApp({
           @mousemove="changeAim"
       ></canvas>
 
-      <KeyboardController 
+      <KeyboardController
           v-if="ctx"
           @changeControls="changeControls"
           @pause="pause = !pause"

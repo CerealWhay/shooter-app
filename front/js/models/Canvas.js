@@ -22,4 +22,11 @@ class Canvas {
     }
 }
 
-export const CANVAS = new Canvas(innerWidth, innerHeight)
+const SCORETABLE_WIDTH = 400
+const GRID_GAP = 15
+const CONTAINER_PADDING = 15
+
+export const CANVAS = new Canvas(
+    innerWidth - SCORETABLE_WIDTH - GRID_GAP - CONTAINER_PADDING*2,
+    innerHeight - CONTAINER_PADDING*2,
+)

@@ -6,7 +6,7 @@ from .serializers import ScoreRecordItemSerializer
 
 @api_view(['GET'])
 def getData(request):
-    items = ScoreRecordItem.objects.all()
+    items = ScoreRecordItem.objects.all().order_by('-score').values()
     serializer = ScoreRecordItemSerializer(items, many=True)
     return Response(serializer.data)
 
@@ -15,7 +15,13 @@ def getData(request):
 def addData(request):
     serializer = ScoreRecordItemSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
+        user = ScoreRecordItem.objects.filter(username=serializer.validated_data['username'])
+        if user.exists():
+            if serializer.validated_data['score'] > user.first().score:
+                serializer.update(user.first(), serializer.validated_data)
+            return Response(serializer.validated_data)
+        else:
+            serializer.save()
+        return Response(serializer.validated_data)
     else:
         return Response({'error': 'wrong data'}, 400)

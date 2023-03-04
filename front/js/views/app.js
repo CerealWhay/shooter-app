@@ -11,6 +11,7 @@ import {
 import {getCanvasMousePosition} from "../common/canvasMousePosition.js";
 import {MainMenu} from "./mainMenu.js";
 import {Overlay} from "./overlay.js";
+import {ScoreTable} from "./scoreTable.js";
 
 /* @todo:
      сделать усложнение (увеличение потока врагов) с увеличением score
@@ -18,7 +19,6 @@ import {Overlay} from "./overlay.js";
      сделать стрельбу зажимом
      сделать звуки
 
-     сделать сохранение на беке (что то вроде таблицы рекордов)
      сделать модельки покрасивше
      сделать несколько видов оружия
      сделалть врагов-боссов (кторые не умирают от одного выстрела)
@@ -30,7 +30,8 @@ export const app = Vue.createApp({
     components: {
         KeyboardController,
         MainMenu,
-        Overlay
+        Overlay,
+        ScoreTable,
     },
     data() {
         return {
@@ -50,6 +51,7 @@ export const app = Vue.createApp({
             isNewGame: true,
             score: null,
 
+            username: '',
             records: []
         }
     },
@@ -64,7 +66,8 @@ export const app = Vue.createApp({
         }
     },
     methods: {
-        init() {
+        init(username) {
+            this.username = username
             this.score = 0;
             this.isNewGame = false;
 
@@ -109,8 +112,7 @@ export const app = Vue.createApp({
                     enemiesController: this.enemiesController,
                 });
                 if (collision.isDeath) {
-                    console.log('loser!!!');
-                    this.isNewGame = true;
+                    this.death();
                 }
                 if (collision.kills) {
                     this.score += collision.kills * 10;
@@ -136,10 +138,27 @@ export const app = Vue.createApp({
             this.playerController.setControls(e)
         },
 
+        death() {
+            console.log('loser!!!');
+            this.isNewGame = true;
+            this.sendRecord();
+        },
+
         getRecords() {
             axios
                 .get('/get-records')
-                .then(response => console.log(response));
+                .then(response => {
+                    if (response.status === 200) this.records = response.data
+                });
+        },
+
+        sendRecord() {
+            axios
+                .post('/add-record', {
+                    username: this.username,
+                    score: this.score
+                })
+                .then(() => this.getRecords());
         }
     },
     // language=Vue
@@ -147,24 +166,29 @@ export const app = Vue.createApp({
 
       <div class="container">
 
-      <MainMenu
-          v-show="pause || isNewGame"
-          :is-new-game="isNewGame"
-          :score="score"
-          @start="init"
-          @resume="pause = false"
-      ></MainMenu>
+      <div class="play-zone">
+        <MainMenu
+            v-show="pause || isNewGame"
+            :is-new-game="isNewGame"
+            :score="score"
+            @start="init"
+            @resume="pause = false"
+        ></MainMenu>
 
-      <Overlay
-          v-show="!pause && !isNewGame"
-          :score="score"
-      ></Overlay>
+        <Overlay
+            v-show="!pause && !isNewGame"
+            :score="score"
+        ></Overlay>
 
-      <canvas
-          ref="canvas"
-          @mousedown="shoot($event)"
-          @mousemove="changeAim"
-      ></canvas>
+        <canvas
+            ref="canvas"
+            @mousedown="shoot($event)"
+            @mousemove="changeAim"
+        ></canvas>
+      </div>
+
+      <ScoreTable :records="records"></ScoreTable>
+
 
       <KeyboardController
           v-if="ctx"

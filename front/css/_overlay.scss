@@ -7,6 +7,9 @@
   border-radius: 15px;
   pointer-events: none;
 
+  display: flex;
+  justify-content: space-between;
+
   .score-ui {
     margin-top: 5px;
     margin-left: 15px;
@@ -16,11 +19,10 @@
   }
 
   .warning-info {
-    text-align: start;
-    position: fixed;
-    top: 5px;
-    right: 15px;
     display: flex;
     flex-direction: column;
+
+    margin-top: 5px;
+    margin-right: 15px;
   }
 }

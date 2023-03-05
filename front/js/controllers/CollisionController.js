@@ -1,3 +1,5 @@
+import AudioController from "./AudioController.js";
+
 export class CollisionController {
 
     frame(controllers) {
@@ -26,6 +28,7 @@ export class CollisionController {
                 playerController.getPlayer().getPosition().y - enemyController.getEnemy().getPosition().y,
             )
             if (dist <= (enemyController.getEnemy().getRadius() + playerController.getPlayer().getRadius())) {
+                AudioController.playDeathSound()
                 isDeath = true
             }
         })
@@ -46,6 +49,7 @@ export class CollisionController {
                 )
                 if (dist <= enemyController.getEnemy().getRadius()) {
                     setTimeout(() => {
+                        AudioController.playKillSound()
                         projectilesController.removeProjectile(projectileController)
                         enemiesController.removeEnemy(enemyController)
                     }, 0)

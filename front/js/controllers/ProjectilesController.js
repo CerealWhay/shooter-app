@@ -1,5 +1,6 @@
 import {CANVAS} from "../models/Canvas.js";
 import {ProjectileController} from "./ProjectileController.js";
+import AudioController from "../controllers/AudioController.js";
 
 
 export class ProjectilesController {
@@ -18,6 +19,7 @@ export class ProjectilesController {
     }
 
     addProjectile(mousePosition, playerPosition) {
+        AudioController.playShootSound()
         const projectileController = new ProjectileController()
         projectileController.setCoordinates(mousePosition, playerPosition)
 

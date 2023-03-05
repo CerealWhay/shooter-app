@@ -2,14 +2,31 @@ import {DynamicCircle} from "./DynamicCircle.js";
 
 export class Enemy extends DynamicCircle {
 
-    radius = 20;
+    radius = 30;
+
+    images = [
+        "images/bitrix.png",
+        "images/kuzya.png",
+        "images/lays.png",
+    ]
 
     constructor() {
         super();
+        this.image = this.images[Math.floor(Math.random() * 3)]
     }
 
     draw() {
-        this.ctx.fillStyle = 'red'
+        this.ctx.fillStyle = 'rgba(167,255,240,0)'
         super.draw()
+
+        const img = new Image();
+        img.src = this.image
+        this.ctx.drawImage(
+            img,
+            this.position.x - 30,
+            this.position.y - 30,
+            60,
+            60
+        );
     }
 }

@@ -2,7 +2,7 @@ import {DynamicCircle} from "./DynamicCircle.js";
 
 export class Player extends DynamicCircle {
 
-    radius = 15;
+    radius = 30;
 
     constructor() {
         super();
@@ -13,7 +13,17 @@ export class Player extends DynamicCircle {
     }
 
     draw() {
-        this.ctx.fillStyle = 'black'
+        this.ctx.fillStyle = 'rgba(167,255,240,0)'
         super.draw()
+
+        const img = new Image();
+        img.src = "images/ebalo.png";
+        this.ctx.drawImage(
+            img,
+            this.position.x - 30,
+            this.position.y - 30,
+            60,
+            60
+        );
     }
 }

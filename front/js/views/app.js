@@ -17,7 +17,6 @@ import {ScoreTable} from "./scoreTable.js";
      сделать полоску хп, чтобы не от одгного вражины дохнуть + хилки на карте можно докинуть
      сделать лимит на патроны, и их появление на канвасе
 
-     сделать модельки покрасивше
      сделать несколько видов оружия
      сделалть врагов-боссов (кторые не умирают от одного выстрела)
      система улучшений (лвла, улучшеные шмотки, плюсы к хп, скорости)
@@ -87,8 +86,7 @@ export const app = Vue.createApp({
         animateCanvas() {
             if (!this.pause) {
                 // clear rect
-                this.ctx.fillStyle = 'rgba(227,227,227,0.8)'
-                this.ctx.fillRect(0, 0, this.canvasRect.width, this.canvasRect.height)
+                this.ctx.clearRect(0, 0,this.canvasRect.width, this.canvasRect.height);
 
                 // draw projectiles
                 this.projectilesController.frame();

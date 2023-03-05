@@ -14,11 +14,12 @@ export class EnemiesController {
         return this.enemies
     }
 
-    frame(playerPosition) {
+    frame(playerPosition, score) {
         this.throttledAddEnemy(playerPosition)
 
         this.enemies.forEach(
             (enemyController) => {
+                enemyController.setAcceleration(score)
                 enemyController.setDeltaPosition(playerPosition)
                 enemyController.frame()
             }

@@ -103,7 +103,8 @@ export const app = Vue.createApp({
 
                 // draw enemies
                 this.enemiesController.frame(
-                    this.playerController.getPlayer().getPosition()
+                    this.playerController.getPlayer().getPosition(),
+                    this.score
                 )
 
                 const collision = this.collisionController.frame({

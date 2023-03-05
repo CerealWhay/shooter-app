@@ -8,10 +8,15 @@ export class EnemyController {
             x: 0,
             y: 0,
         }
+        this.setAcceleration()
     }
 
     getEnemy() {
         return this.enemy
+    }
+
+    setAcceleration(score = 0) {
+        this.acceleration = (score / 250) + 0.5
     }
 
     frame() {
@@ -20,8 +25,8 @@ export class EnemyController {
     }
 
     move() {
-        this.enemy.getPosition().x += this.deltaPosition.x * 0.5;
-        this.enemy.getPosition().y += this.deltaPosition.y * 0.5;
+        this.enemy.getPosition().x += this.deltaPosition.x * this.acceleration;
+        this.enemy.getPosition().y += this.deltaPosition.y * this.acceleration;
     }
 
     setCoordinates(playerPosition) {

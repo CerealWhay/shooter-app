@@ -19,8 +19,8 @@ export class ProjectileController {
     }
 
     move() {
-        this.projectile.getPosition().x += this.deltaPosition.x * 15;
-        this.projectile.getPosition().y += this.deltaPosition.y * 15;
+        this.projectile.getPosition().x += this.deltaPosition.x * 30;
+        this.projectile.getPosition().y += this.deltaPosition.y * 30;
     }
     setCoordinates(mousePosition, playerPosition) {
         this.projectile.setPosition({x:playerPosition.x, y: playerPosition.y})

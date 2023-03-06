@@ -25,7 +25,7 @@ export class ShootController {
     }
 
     shoot() {
-        // AudioController.playShootSound()
+        AudioController.playShootSound()
         const canvasMousePos = getCanvasMousePosition(CANVAS.getCanvasRect(), this.mousePos)
         this.projectilesController.addProjectile(
             canvasMousePos,

@@ -1,5 +1,6 @@
 
 import {KeyboardController} from "./KeyboardController.js";
+import {ShootController} from "./ShootController.js";
 import {PlayerController} from "./PlayerController.js";
 import {AimController} from "./AimController.js";
 import {ProjectilesController} from "./ProjectilesController.js";
@@ -15,4 +16,5 @@ export {
     CollisionController,
 
     KeyboardController,
+    ShootController,
 }

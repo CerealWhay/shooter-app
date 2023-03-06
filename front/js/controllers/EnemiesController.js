@@ -7,7 +7,7 @@ export class EnemiesController {
     enemies = [];
 
     constructor() {
-        this.throttledAddEnemy = throttle(this.addEnemy, 1000)
+        this.throttledAddEnemy = throttle(this.addEnemy, 750)
     }
 
     getEnemies() {

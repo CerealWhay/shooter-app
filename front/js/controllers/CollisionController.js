@@ -105,7 +105,9 @@ export class CollisionController {
     }
 
     shootInBoss(enemyController) {
-        return enemyController.decreaseEnemyHP() === 0;
+        const hp = enemyController.decreaseEnemyHP()
+        if (hp === 0) this.enemiesController.setIsBossExist(false)
+        return hp === 0;
     }
 
 }

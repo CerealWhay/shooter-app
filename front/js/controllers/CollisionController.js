@@ -35,26 +35,17 @@ export class CollisionController {
             )
             if (dist <= (enemyController.getEnemy().getRadius() + this.playerController.getPlayer().getRadius())) {
                 if (!this.playerInvulnerable)
-                    isDeath = this.playerTouchedEnemy().isDead
+                    isDeath = this.playerTouchedEnemy()
             }
         })
         return isDeath;
     }
 
     playerTouchedEnemy() {
-        let playerStat = {
-            isDead: false,
-            hp: this.playerController.getPlayerHP(),
-        }
-        if (playerStat.hp !== 1) {
-            this.playerController.setPlayerHP(playerStat.hp - 1)
-            this.playerInvulnerable = true
-            setTimeout(() => this.playerInvulnerable = false, 500)
-        } else {
-            AudioController.playDeathSound()
-            playerStat.isDead = true
-        }
-        return playerStat
+        const hp = this.playerController.decreasePlayerHP()
+        this.playerInvulnerable = true
+        setTimeout(() => this.playerInvulnerable = false, 500)
+        return hp === 0;
     }
 
     ProjectileEnemyCollision() {
@@ -74,7 +65,7 @@ export class CollisionController {
                         this.projectilesController.removeProjectile(projectileController)
 
                         if (enemyController.isBoss) {
-                            const isDead = this.shootInBoss(enemyController).isDead
+                            const isDead = this.shootInBoss(enemyController)
                             if (!isDead) return kills
                         }
                         this.killEnemy(projectileController, enemyController);
@@ -92,17 +83,7 @@ export class CollisionController {
     }
 
     shootInBoss(enemyController) {
-        let bossStat = {
-            isDead: false,
-            hp: enemyController.getBossHP(),
-        }
-        if (bossStat.hp !== 1) {
-            enemyController.setBossHP(bossStat.hp - 1)
-        } else {
-            bossStat.isDead = true
-            this.enemiesController.setIsBossExist(false)
-        }
-        return bossStat
+        return enemyController.decreaseEnemyHP() === 0;
     }
 
 }

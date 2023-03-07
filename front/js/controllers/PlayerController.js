@@ -28,13 +28,16 @@ export class PlayerController {
         this.controls = controls
     }
 
-    getPlayerHP() {
+    increasePlayerHP() {
+        this.healthPoints++
+        this.player.setHPFactor(this.healthPoints / this.baseHP)
         return this.healthPoints
     }
 
-    setPlayerHP(hp) {
-        this.healthPoints = hp
+    decreasePlayerHP() {
+        this.healthPoints--
         this.player.setHPFactor(this.healthPoints / this.baseHP)
+        return this.healthPoints
     }
 
     move() {

@@ -28,6 +28,10 @@ export class PlayerController {
         this.controls = controls
     }
 
+    isHPfull() {
+        return this.baseHP === this.healthPoints
+    }
+
     increasePlayerHP() {
         this.healthPoints++
         this.player.setHPFactor(this.healthPoints / this.baseHP)

@@ -9,15 +9,19 @@ export class CollisionController {
             playerController,
             projectilesController,
             enemiesController,
+            lootController,
         } = controllers
         this.projectilesController = projectilesController
         this.playerController = playerController
         this.enemiesController = enemiesController
+        this.lootController = lootController
     }
 
     frame() {
         const isDeath = this.playerEnemyCollision();
         const kills = this.ProjectileEnemyCollision();
+        this.playerHealthPackCollision()
+
         return {
             kills: kills,
             isDeath: isDeath
@@ -34,18 +38,11 @@ export class CollisionController {
                 this.playerController.getPlayer().getPosition().y - enemyController.getEnemy().getPosition().y,
             )
             if (dist <= (enemyController.getEnemy().getRadius() + this.playerController.getPlayer().getRadius())) {
-                if (!this.playerInvulnerable)
-                    isDeath = this.playerTouchedEnemy()
+                if (!this.playerInvulnerable) isDeath = this.playerTouchedEnemy()
+                if (isDeath) AudioController.playDeathSound()
             }
         })
         return isDeath;
-    }
-
-    playerTouchedEnemy() {
-        const hp = this.playerController.decreasePlayerHP()
-        this.playerInvulnerable = true
-        setTimeout(() => this.playerInvulnerable = false, 500)
-        return hp === 0;
     }
 
     ProjectileEnemyCollision() {
@@ -75,6 +72,31 @@ export class CollisionController {
             })
         })
         return kills;
+    }
+
+    playerHealthPackCollision() {
+        const healthPacks = this.lootController.getHealthPacks()
+        healthPacks.forEach(healthPack => {
+            const dist = Math.hypot(
+                this.playerController.getPlayer().getPosition().x - healthPack.getModel().getPosition().x,
+                this.playerController.getPlayer().getPosition().y - healthPack.getModel().getPosition().y,
+            )
+            if (dist <= (healthPack.getModel().getRadius() + this.playerController.getPlayer().getRadius())) {
+                if (!this.playerController.isHPfull()) {
+                    this.lootController.removeLoot(healthPack)
+                    this.playerController.increasePlayerHP()
+                }
+            }
+        })
+    }
+
+
+    // service funcs
+    playerTouchedEnemy() {
+        const hp = this.playerController.decreasePlayerHP()
+        this.playerInvulnerable = true
+        setTimeout(() => this.playerInvulnerable = false, 500)
+        return hp === 0;
     }
 
     killEnemy(projectileController, enemyController) {

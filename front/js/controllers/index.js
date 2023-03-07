@@ -6,6 +6,7 @@ import {AimController} from "./AimController.js";
 import {ProjectilesController} from "./ProjectilesController.js";
 import {EnemiesController} from "./EnemiesController.js";
 import {CollisionController} from "./CollisionController.js";
+import {LootController} from "./loot/LootController.js";
 
 export {
     PlayerController,
@@ -17,4 +18,5 @@ export {
 
     KeyboardController,
     ShootController,
+    LootController,
 }

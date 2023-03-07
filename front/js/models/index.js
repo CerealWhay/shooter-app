@@ -2,6 +2,7 @@
 import {
     Enemy,
     BossEnemy,
+    HealthPack,
     Projectile,
     AimLine,
     Player,
@@ -10,6 +11,7 @@ import {
 export {
     Enemy,
     BossEnemy,
+    HealthPack,
     Projectile,
     AimLine,
     Player,

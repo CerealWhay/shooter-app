@@ -8,6 +8,7 @@ import {
     KeyboardController,
     ShootController,
     CollisionController,
+    LootController,
 } from "../controllers/index.js"
 import {MainMenu} from "./mainMenu.js";
 import {Overlay} from "./overlay.js";
@@ -43,6 +44,7 @@ export const app = Vue.createApp({
             enemiesController: null,
             collisionController: null,
             shootController: null,
+            LootController: null,
 
             pause: false,
             isNewGame: true,
@@ -74,10 +76,15 @@ export const app = Vue.createApp({
             this.projectilesController = new ProjectilesController();
             this.enemiesController = new EnemiesController();
 
+            this.lootController = new LootController(
+                this.playerController
+            );
+
             this.collisionController = new CollisionController({
                 playerController: this.playerController,
                 projectilesController: this.projectilesController,
                 enemiesController: this.enemiesController,
+                lootController: this.lootController,
             });
 
             this.shootController = new ShootController(
@@ -116,6 +123,9 @@ export const app = Vue.createApp({
                     this.playerController.getPlayer().getPosition(),
                     this.score
                 )
+
+                // draw loot
+                this.lootController.frame()
 
                 const collision = this.collisionController.frame();
                 if (collision.isDeath) this.death();

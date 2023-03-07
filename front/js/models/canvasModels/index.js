@@ -5,6 +5,7 @@ import {Projectile} from "./Projectile.js";
 import {AimLine} from "./Aim.js";
 import {Player} from "./Player.js";
 import {PlayButton} from "./PlayButton.js";
+import {HealthPack} from "./HealthPack.js";
 
 
 export {
@@ -14,5 +15,6 @@ export {
     AimLine,
     Player,
 
-    PlayButton
+    PlayButton,
+    HealthPack,
 }

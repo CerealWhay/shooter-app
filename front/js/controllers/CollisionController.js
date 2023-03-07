@@ -21,6 +21,7 @@ export class CollisionController {
         const isDeath = this.playerEnemyCollision();
         const kills = this.ProjectileEnemyCollision();
         this.playerHealthPackCollision()
+        this.playerAmmoPackCollision()
 
         return {
             kills: kills,
@@ -83,9 +84,23 @@ export class CollisionController {
             )
             if (dist <= (healthPack.getModel().getRadius() + this.playerController.getPlayer().getRadius())) {
                 if (!this.playerController.isHPfull()) {
-                    this.lootController.removeLoot(healthPack)
+                    setTimeout(() => this.lootController.removeLoot(healthPack), 0);
                     this.playerController.increasePlayerHP()
                 }
+            }
+        })
+    }
+
+    playerAmmoPackCollision() {
+        const ammoPacks = this.lootController.getAmmoPacks()
+        ammoPacks.forEach(ammoPack => {
+            const dist = Math.hypot(
+                this.playerController.getPlayer().getPosition().x - ammoPack.getModel().getPosition().x,
+                this.playerController.getPlayer().getPosition().y - ammoPack.getModel().getPosition().y,
+            )
+            if (dist <= (ammoPack.getModel().getRadius() + this.playerController.getPlayer().getRadius())) {
+                setTimeout(() => this.lootController.removeLoot(ammoPack), 0);
+                this.playerController.setFullAmmo()
             }
         })
     }

@@ -5,6 +5,9 @@ export class PlayerController {
     baseHP = 5
     healthPoints = this.baseHP
 
+    baseAmmo = 50
+    ammoCount = this.baseAmmo
+
     constructor() {
         this.player = new Player();
         this.controls = {
@@ -32,6 +35,14 @@ export class PlayerController {
         return this.baseHP === this.healthPoints
     }
 
+    getAmmoCount() {
+        return this.ammoCount
+    }
+
+    setFullAmmo() {
+        return this.ammoCount = this.baseAmmo
+    }
+
     increasePlayerHP() {
         this.healthPoints++
         this.player.setHPFactor(this.healthPoints / this.baseHP)
@@ -42,6 +53,10 @@ export class PlayerController {
         this.healthPoints--
         this.player.setHPFactor(this.healthPoints / this.baseHP)
         return this.healthPoints
+    }
+
+    decreaseAmmoCount() {
+        this.ammoCount--
     }
 
     move() {

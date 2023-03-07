@@ -25,12 +25,15 @@ export class ShootController {
     }
 
     shoot() {
-        AudioController.playShootSound()
-        const canvasMousePos = getCanvasMousePosition(CANVAS.getCanvasRect(), this.mousePos)
-        this.projectilesController.addProjectile(
-            canvasMousePos,
-            this.playerController.getPlayer().getPosition()
-        )
+        if (this.playerController.getAmmoCount() > 0) {
+            AudioController.playShootSound()
+            this.playerController.decreaseAmmoCount()
+            const canvasMousePos = getCanvasMousePosition(CANVAS.getCanvasRect(), this.mousePos)
+            this.projectilesController.addProjectile(
+                canvasMousePos,
+                this.playerController.getPlayer().getPosition()
+            )
+        }
     }
 
     changeAim() {

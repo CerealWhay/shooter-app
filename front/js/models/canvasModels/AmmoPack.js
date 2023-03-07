@@ -1,6 +1,6 @@
 import {DynamicCircle} from "./DynamicCircle.js";
 
-export class HealthPack extends DynamicCircle {
+export class AmmoPack extends DynamicCircle {
 
     radius = 30;
 
@@ -9,7 +9,7 @@ export class HealthPack extends DynamicCircle {
     }
 
     draw() {
-        this.ctx.fillStyle = 'rgb(255,0,213)'
+        this.ctx.fillStyle = 'rgba(200,255,0,0.91)'
         super.draw()
     }
 }

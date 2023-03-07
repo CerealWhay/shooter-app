@@ -15,8 +15,13 @@ import {Overlay} from "./overlay.js";
 import {ScoreTable} from "./scoreTable.js";
 
 /* @todo:
-     хилки на карте можно докинуть
-     сделать лимит на патроны, и их появление на канвасе
+     сменить модельки
+     сделать звуки:
+      удара игрока об врага
+      удара пули по врагу
+      выстерел без пули
+      смерть врага босса
+      сделать длину звука выстрела равной 100мс
 
      сделать несколько видов оружия
      система улучшений (лвла, улучшеные шмотки, плюсы к хп, скорости)
@@ -49,6 +54,7 @@ export const app = Vue.createApp({
             pause: false,
             isNewGame: true,
             score: null,
+            ammoCount: 0,
 
             username: '',
             records: []
@@ -114,6 +120,7 @@ export const app = Vue.createApp({
 
                 // draw player
                 this.playerController.frame()
+                this.ammoCount = this.playerController.getAmmoCount()
 
                 // draw aim
                 this.aimController.frame()
@@ -187,6 +194,7 @@ export const app = Vue.createApp({
         <Overlay
             v-show="!pause && !isNewGame"
             :score="score"
+            :ammo-count="ammoCount"
         ></Overlay>
 
         <canvas

@@ -16,17 +16,17 @@ export class Enemy extends DynamicCircle {
     }
 
     draw() {
-        this.ctx.fillStyle = 'rgba(167,255,240,0)'
+        this.ctx.fillStyle = 'rgb(0,111,248)'
         super.draw()
 
-        const img = new Image();
-        img.src = this.image
-        this.ctx.drawImage(
-            img,
-            this.position.x - 30,
-            this.position.y - 30,
-            60,
-            60
-        );
+        // const img = new Image();
+        // img.src = this.image
+        // this.ctx.drawImage(
+        //     img,
+        //     this.position.x - this.radius,
+        //     this.position.y - this.radius,
+        //     this.radius*2,
+        //     this.radius*2,
+        // );
     }
 }

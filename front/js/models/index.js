@@ -1,6 +1,7 @@
 
 import {
     Enemy,
+    BossEnemy,
     Projectile,
     AimLine,
     Player,
@@ -8,6 +9,7 @@ import {
 
 export {
     Enemy,
+    BossEnemy,
     Projectile,
     AimLine,
     Player,

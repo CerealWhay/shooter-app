@@ -14,9 +14,8 @@ import {Overlay} from "./overlay.js";
 import {ScoreTable} from "./scoreTable.js";
 
 /* @todo:
-     сделать полоску хп, чтобы не от одгного вражины дохнуть + хилки на карте можно докинуть
+     хилки на карте можно докинуть
      сделать лимит на патроны, и их появление на канвасе
-     сделать босса на каждые 500 очков (он будет умирать от большего кол-ва выстрелов + фикса скорость(наверное 1x))
 
      сделать несколько видов оружия
      система улучшений (лвла, улучшеные шмотки, плюсы к хп, скорости)
@@ -74,7 +73,12 @@ export const app = Vue.createApp({
             this.aimController = new AimController();
             this.projectilesController = new ProjectilesController();
             this.enemiesController = new EnemiesController();
-            this.collisionController = new CollisionController();
+
+            this.collisionController = new CollisionController({
+                playerController: this.playerController,
+                projectilesController: this.projectilesController,
+                enemiesController: this.enemiesController,
+            });
 
             this.shootController = new ShootController(
                 this.projectilesController,
@@ -93,7 +97,7 @@ export const app = Vue.createApp({
         animateCanvas() {
             if (!this.pause) {
                 // clear rect
-                this.ctx.clearRect(0, 0,this.canvasRect.width, this.canvasRect.height);
+                this.ctx.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
 
                 // shoot events
                 this.shootController.frame()
@@ -113,17 +117,9 @@ export const app = Vue.createApp({
                     this.score
                 )
 
-                const collision = this.collisionController.frame({
-                    playerController: this.playerController,
-                    projectilesController: this.projectilesController,
-                    enemiesController: this.enemiesController,
-                });
-                if (collision.isDeath) {
-                    this.death();
-                }
-                if (collision.kills) {
-                    this.score += collision.kills * 10;
-                }
+                const collision = this.collisionController.frame();
+                if (collision.isDeath) this.death();
+                if (collision.kills) this.score += collision.kills * 10;
             }
             this.animation = window.requestAnimationFrame(this.animateCanvas)
         },

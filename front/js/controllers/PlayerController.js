@@ -1,8 +1,10 @@
 import {Player} from "../models/index.js";
 
 export class PlayerController {
-
     controls = null;
+    baseHP = 5
+    healthPoints = this.baseHP
+
     constructor() {
         this.player = new Player();
         this.controls = {
@@ -24,6 +26,15 @@ export class PlayerController {
 
     setControls(controls) {
         this.controls = controls
+    }
+
+    getPlayerHP() {
+        return this.healthPoints
+    }
+
+    setPlayerHP(hp) {
+        this.healthPoints = hp
+        this.player.setHPFactor(this.healthPoints / this.baseHP)
     }
 
     move() {

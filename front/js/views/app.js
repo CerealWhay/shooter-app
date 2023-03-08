@@ -15,8 +15,6 @@ import {Overlay} from "./overlay.js";
 import {ScoreTable} from "./scoreTable.js";
 
 /* @todo:
-     сменить модельки
-
      сделать несколько видов оружия
      система улучшений (лвла, улучшеные шмотки, плюсы к хп, скорости)
      сделать милишное оружие
@@ -109,15 +107,12 @@ export const app = Vue.createApp({
                 // shoot events
                 this.shootController.frame()
 
-                // draw projectiles
-                this.projectilesController.frame();
-
                 // draw player
                 this.playerController.frame()
                 this.ammoCount = this.playerController.getAmmoCount()
 
-                // draw aim
-                this.aimController.frame()
+                // draw loot
+                this.lootController.frame()
 
                 // draw enemies
                 this.enemiesController.frame(
@@ -125,8 +120,11 @@ export const app = Vue.createApp({
                     this.score
                 )
 
-                // draw loot
-                this.lootController.frame()
+                // draw projectiles
+                this.projectilesController.frame();
+
+                // draw aim
+                this.aimController.frame()
 
                 const collision = this.collisionController.frame();
                 if (collision.isDeath) this.death();

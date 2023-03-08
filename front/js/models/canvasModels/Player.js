@@ -13,18 +13,16 @@ export class Player extends DynamicCircle {
     }
 
     draw() {
-        this.ctx.fillStyle = 'rgb(0,255,210)'
-        super.draw()
         super.drawHPBar()
 
-        // const img = new Image();
-        // img.src = "images/ebalo.png";
-        // this.ctx.drawImage(
-        //     img,
-        //     this.position.x - this.radius,
-        //     this.position.y - this.radius,
-        //     this.radius*2,
-        //     this.radius*2,
-        // );
+        const img = new Image();
+        img.src = "images/ebalo.png";
+        this.ctx.drawImage(
+            img,
+            this.position.x - this.radius,
+            this.position.y - this.radius,
+            this.radius * 2,
+            this.radius * 2,
+        );
     }
 }

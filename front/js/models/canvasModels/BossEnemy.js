@@ -9,7 +9,16 @@ export class BossEnemy extends Enemy {
     }
 
     draw() {
-        super.draw()
         super.drawHPBar()
+
+        const img = new Image();
+        img.src = "images/boss-enemy.png";
+        this.ctx.drawImage(
+            img,
+            this.position.x - this.radius,
+            this.position.y - this.radius,
+            this.radius * 2,
+            this.radius * 2,
+        );
     }
 }

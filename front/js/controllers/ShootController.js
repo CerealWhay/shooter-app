@@ -16,7 +16,7 @@ export class ShootController {
         this.playerController = playerController
         this.aimController = aimController
 
-        this.throttledShoot = throttle(this.shoot.bind(this), 100)
+        this.throttledShoot = throttle(this.shoot.bind(this), 125)
     }
 
     frame() {
@@ -33,6 +33,8 @@ export class ShootController {
                 canvasMousePos,
                 this.playerController.getPlayer().getPosition()
             )
+        } else {
+            AudioController.playEmptyShootSound()
         }
     }
 

@@ -86,6 +86,7 @@ export class CollisionController {
                 if (!this.playerController.isHPfull()) {
                     setTimeout(() => this.lootController.removeLoot(healthPack), 0);
                     this.playerController.increasePlayerHP()
+                    AudioController.playHealthPickupSound()
                 }
             }
         })
@@ -101,6 +102,7 @@ export class CollisionController {
             if (dist <= (ammoPack.getModel().getRadius() + this.playerController.getPlayer().getRadius())) {
                 setTimeout(() => this.lootController.removeLoot(ammoPack), 0);
                 this.playerController.setFullAmmo()
+                AudioController.playAmmoPickupSound()
             }
         })
     }
@@ -108,6 +110,7 @@ export class CollisionController {
 
     // service funcs
     playerTouchedEnemy() {
+        AudioController.playDamageSound()
         const hp = this.playerController.decreasePlayerHP()
         this.playerInvulnerable = true
         setTimeout(() => this.playerInvulnerable = false, 500)
@@ -120,6 +123,7 @@ export class CollisionController {
     }
 
     shootInBoss(enemyController) {
+        AudioController.playEnemyHitSound()
         const hp = enemyController.decreaseEnemyHP()
         if (hp === 0) this.enemiesController.setIsBossExist(false)
         return hp === 0;

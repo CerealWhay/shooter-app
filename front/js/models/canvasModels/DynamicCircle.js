@@ -7,6 +7,8 @@ export class DynamicCircle {
         x: 0,
         y: 0,
     }
+    healthBarHeight = 10
+    HPFactor = 1
 
     constructor() {
         this.canvas = CANVAS;
@@ -37,5 +39,27 @@ export class DynamicCircle {
         );
         this.ctx.closePath();
         this.ctx.fill();
+    }
+
+    drawHPBar() {
+        this.ctx.fillStyle = 'black'
+        this.ctx.fillRect(
+            this.position.x - this.radius,
+            this.position.y - this.radius - this.healthBarHeight * 2,
+            this.radius*2,
+            this.healthBarHeight,
+        )
+
+        this.ctx.fillStyle = 'red'
+        this.ctx.fillRect(
+            this.position.x - this.radius + 2,
+            this.position.y - this.radius - this.healthBarHeight * 2 + 2,
+            (this.radius*2 - 4) * this.HPFactor,
+            this.healthBarHeight - 4,
+        )
+    }
+
+    setHPFactor(factor) {
+        this.HPFactor = factor
     }
 }

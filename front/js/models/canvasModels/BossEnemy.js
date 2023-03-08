@@ -1,22 +1,18 @@
-import {DynamicCircle} from "./DynamicCircle.js";
+import {Enemy} from "./Enemy.js";
 
-export class Player extends DynamicCircle {
+export class BossEnemy extends Enemy {
 
-    radius = 30;
+    radius = 50;
 
     constructor() {
         super();
-        this.position = {
-            x: this.canvas.getCanvasRect().width / 2,
-            y: this.canvas.getCanvasRect().height / 2,
-        }
     }
 
     draw() {
         super.drawHPBar()
 
         const img = new Image();
-        img.src = "images/ebalo.png";
+        img.src = "images/boss-enemy.png";
         this.ctx.drawImage(
             img,
             this.position.x - this.radius,

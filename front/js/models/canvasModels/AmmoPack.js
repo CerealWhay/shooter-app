@@ -1,22 +1,19 @@
 import {DynamicCircle} from "./DynamicCircle.js";
 
-export class Player extends DynamicCircle {
+export class AmmoPack extends DynamicCircle {
 
     radius = 30;
 
     constructor() {
         super();
-        this.position = {
-            x: this.canvas.getCanvasRect().width / 2,
-            y: this.canvas.getCanvasRect().height / 2,
-        }
     }
 
     draw() {
-        super.drawHPBar()
+        this.ctx.fillStyle = 'rgba(0,255,4,0.2)'
+        super.draw()
 
         const img = new Image();
-        img.src = "images/ebalo.png";
+        img.src = "images/ammo.png";
         this.ctx.drawImage(
             img,
             this.position.x - this.radius,

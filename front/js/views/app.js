@@ -6,19 +6,16 @@ import {
     EnemiesController,
 
     KeyboardController,
+    ShootController,
     CollisionController,
+    LootController,
 } from "../controllers/index.js"
-import {getCanvasMousePosition} from "../common/canvasMousePosition.js";
 import {MainMenu} from "./mainMenu.js";
 import {Overlay} from "./overlay.js";
 import {ScoreTable} from "./scoreTable.js";
 
 /* @todo:
-     сделать полоску хп, чтобы не от одгного вражины дохнуть + хилки на карте можно докинуть
-     сделать лимит на патроны, и их появление на канвасе
-
      сделать несколько видов оружия
-     сделалть врагов-боссов (кторые не умирают от одного выстрела)
      система улучшений (лвла, улучшеные шмотки, плюсы к хп, скорости)
      сделать милишное оружие
 */
@@ -43,10 +40,13 @@ export const app = Vue.createApp({
             projectilesController: null,
             enemiesController: null,
             collisionController: null,
+            shootController: null,
+            LootController: null,
 
             pause: false,
             isNewGame: true,
             score: null,
+            ammoCount: 0,
 
             username: '',
             records: []
@@ -73,7 +73,23 @@ export const app = Vue.createApp({
             this.aimController = new AimController();
             this.projectilesController = new ProjectilesController();
             this.enemiesController = new EnemiesController();
-            this.collisionController = new CollisionController();
+
+            this.lootController = new LootController(
+                this.playerController
+            );
+
+            this.collisionController = new CollisionController({
+                playerController: this.playerController,
+                projectilesController: this.projectilesController,
+                enemiesController: this.enemiesController,
+                lootController: this.lootController,
+            });
+
+            this.shootController = new ShootController(
+                this.projectilesController,
+                this.playerController,
+                this.aimController,
+            )
 
             this.animation = window.requestAnimationFrame(this.animateCanvas)
         },
@@ -86,16 +102,17 @@ export const app = Vue.createApp({
         animateCanvas() {
             if (!this.pause) {
                 // clear rect
-                this.ctx.clearRect(0, 0,this.canvasRect.width, this.canvasRect.height);
+                this.ctx.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
 
-                // draw projectiles
-                this.projectilesController.frame();
+                // shoot events
+                this.shootController.frame()
 
                 // draw player
                 this.playerController.frame()
+                this.ammoCount = this.playerController.getAmmoCount()
 
-                // draw aim
-                this.aimController.frame()
+                // draw loot
+                this.lootController.frame()
 
                 // draw enemies
                 this.enemiesController.frame(
@@ -103,33 +120,27 @@ export const app = Vue.createApp({
                     this.score
                 )
 
-                const collision = this.collisionController.frame({
-                    playerController: this.playerController,
-                    projectilesController: this.projectilesController,
-                    enemiesController: this.enemiesController,
-                });
-                if (collision.isDeath) {
-                    this.death();
-                }
-                if (collision.kills) {
-                    this.score += collision.kills * 10;
-                }
+                // draw projectiles
+                this.projectilesController.frame();
+
+                // draw aim
+                this.aimController.frame()
+
+                const collision = this.collisionController.frame();
+                if (collision.isDeath) this.death();
+                if (collision.kills) this.score += collision.kills * 10;
             }
             this.animation = window.requestAnimationFrame(this.animateCanvas)
         },
 
-        shoot(e) {
-            const canvasMousePos = getCanvasMousePosition(this.canvasRect, {x: e.clientX, y: e.clientY})
-            this.projectilesController.addProjectile(
-                canvasMousePos,
-                this.playerController.getPlayer().getPosition()
-            )
+        mouseDown() {
+            this.shootController.setIsShooting(true)
         },
-        changeAim(e) {
-            this.aimController.setPlayerPos(this.playerController.getPlayer().getPosition())
-            this.aimController.setMousePos(
-                getCanvasMousePosition(this.canvasRect, {x: e.clientX, y: e.clientY})
-            );
+        mouseUp() {
+            this.shootController.setIsShooting(false)
+        },
+        mouseMove(e) {
+            this.shootController.setMousePos({x: e.clientX, y: e.clientY})
         },
         changeControls(e) {
             this.playerController.setControls(e)
@@ -175,12 +186,14 @@ export const app = Vue.createApp({
         <Overlay
             v-show="!pause && !isNewGame"
             :score="score"
+            :ammo-count="ammoCount"
         ></Overlay>
 
         <canvas
             ref="canvas"
-            @mousedown="shoot($event)"
-            @mousemove="changeAim"
+            @mousedown="mouseDown"
+            @mouseup="mouseUp"
+            @mousemove="mouseMove"
         ></canvas>
       </div>
 

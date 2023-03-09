@@ -16,7 +16,7 @@ export class EnemyController {
     }
 
     setAcceleration(score = 0) {
-        this.acceleration = (score / 250) + 0.5
+        this.acceleration = (score / 1500) + 0.5
     }
 
     frame() {

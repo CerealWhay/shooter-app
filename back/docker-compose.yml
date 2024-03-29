@@ -30,7 +30,7 @@ services:
       - duck
     networks:
       - nginx-proxy
-      - duck
+      - default
 
 volumes:
   duck_static_volume:

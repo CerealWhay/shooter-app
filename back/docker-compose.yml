@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   duck:
+    container_name: duck_back
     build: .
     restart: unless-stopped
     command: uvicorn --host 0.0.0.0 --port 8080 --workers 4 asgi:application
@@ -14,6 +15,7 @@ services:
     env_file:
       - .env
   nginx:
+    container_name: duck_nginx
     image: nginx:1.15-alpine
     restart: unless-stopped
     env_file:

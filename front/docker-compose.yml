@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   duck:
+    container_name: duck_front
     build: .
     restart: unless-stopped
     env_file:

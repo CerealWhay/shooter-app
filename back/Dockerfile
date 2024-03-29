@@ -3,8 +3,8 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-ENV APP_HOME=/home/shooter
-ENV APP_SOURCES=/home/shooter/app_back
+ENV APP_HOME=/home/duck
+ENV APP_SOURCES=/home/duck/app_back
 RUN mkdir $APP_HOME
 
 # Создаем файл под django логи
@@ -24,5 +24,5 @@ RUN pip install uvicorn
 WORKDIR $APP_SOURCES
 
 RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.sh
-RUN chmod +x /home/shooter/entrypoint.sh
-ENTRYPOINT ["/home/shooter/entrypoint.sh"]
+RUN chmod +x /home/duck/entrypoint.sh
+ENTRYPOINT ["/home/duck/entrypoint.sh"]

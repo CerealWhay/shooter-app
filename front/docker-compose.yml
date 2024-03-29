@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  shooter:
+  duck:
     build: .
     restart: unless-stopped
     env_file:

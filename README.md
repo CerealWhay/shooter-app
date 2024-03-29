@@ -1,1 +1,1 @@
-https://shooter.cerealwhay.ru/
+https://shooter.cwcwcw.ru/

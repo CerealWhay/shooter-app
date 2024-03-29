@@ -33,9 +33,9 @@ services:
       - default
 
 volumes:
-  static_volume:
-  media_volume:
-  db_volume:
+  duck_static_volume:
+  duck_media_volume:
+  duck_db_volume:
 
 networks:
   nginx-proxy:

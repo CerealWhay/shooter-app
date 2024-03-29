@@ -29,14 +29,14 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
-    'api.shooter.cerealwhay.ru',
+    'api.shooter.cwcwcw.ru',
     '127.0.0.1',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://*.cerealwhay.ru']
+CSRF_TRUSTED_ORIGINS = ['https://*.cwcwcw.ru']
 
 CORS_ALLOWED_ORIGINS = [
-    "https://shooter.cerealwhay.ru",
+    "https://shooter.cwcwcw.ru",
 ]
 # Application definition
 

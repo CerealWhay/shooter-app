@@ -12,7 +12,7 @@ export class BossEnemy extends Enemy {
         super.drawHPBar()
 
         const img = new Image();
-        img.src = "images/boss-enemy.png";
+        img.src = "images/enemies/bems.png";
         this.ctx.drawImage(
             img,
             this.position.x - this.radius,

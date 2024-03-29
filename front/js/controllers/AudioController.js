@@ -3,7 +3,7 @@ class AudioController {
     constructor() {
         this.deathSound = new Audio("audio/death.mp3");
         this.shootSound = new Audio("audio/shoot.wav");
-        this.killSound = new Audio("audio/kill.wav");
+        this.killSound = new Audio("audio/quack.mp3");
         this.damageSound = new Audio("audio/player-damage.wav");
         this.enemyHitSound = new Audio("audio/enemy-hit.wav");
         this.emptyShootSound = new Audio("audio/empty-shoot.wav");

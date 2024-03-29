@@ -43,6 +43,7 @@ export const MainMenu =  {
             class="username"
             :class="{'error': usernameError}"
         >
+          <div class="username__desc">Игра по мотивам печальной повести о том как БЕМС вышел из уток в минуса...</div>
           <div class="username__label">Please enter username</div>
           <input id="username__input" 
                  class="username__input"

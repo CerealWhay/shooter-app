@@ -50,7 +50,7 @@ export class DynamicCircle {
             this.healthBarHeight,
         )
 
-        this.ctx.fillStyle = 'red'
+        this.ctx.fillStyle = "rgb(254, 205, 9)"
         this.ctx.fillRect(
             this.position.x - this.radius + 2,
             this.position.y - this.radius - this.healthBarHeight * 2 + 2,

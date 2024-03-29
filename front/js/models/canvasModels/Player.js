@@ -16,7 +16,7 @@ export class Player extends DynamicCircle {
         super.drawHPBar()
 
         const img = new Image();
-        img.src = "images/ebalo.png";
+        img.src = "images/duck.png";
         this.ctx.drawImage(
             img,
             this.position.x - this.radius,

@@ -1,1 +1,1 @@
-https://shooter.cwcwcw.ru/
+https://duck-vs-bems.ru/

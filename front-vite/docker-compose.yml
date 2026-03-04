@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  shooter:
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    env_file:
+      - .env
+    expose:
+      - "${VIRTUAL_PORT}"
+    networks:
+      - nginx-proxy
+
+networks:
+  nginx-proxy:
+    name: net-nginx-proxy
+    external: true

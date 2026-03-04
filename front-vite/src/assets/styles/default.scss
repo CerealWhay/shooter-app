@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  font-family: "Gill Sans", sans-serif;
+}
+
+
+.container {
+  padding: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  column-gap: 15px;
+}
+
+.play-zone {
+  position: relative;
+}
+
+canvas {
+  display: block;
+  border-radius: 15px;
+  cursor: crosshair;
+}
+
+input[type=range] {
+  width: 500px;
+}

@@ -1,0 +1,59 @@
+<script setup lang="ts">
+const props = defineProps<{ score: number; ammoCount: number }>();
+</script>
+
+<template>
+  <div class="overlay">
+    <div class="score-ui">
+      <div>
+        Your score:
+        <span class="score-num">
+          {{ props.score }}
+        </span>
+      </div>
+      <div>
+        Your ammo count:
+        <span class="score-num">
+          {{ props.ammoCount }}
+        </span>
+      </div>
+    </div>
+
+    <div class="warning-info">
+      controls :
+      <span class="warninig-info__message">WASD - movement</span>
+      <span class="warninig-info__message">LEFT CLICK - shoot</span>
+      <span class="warninig-info__message">ESC - pause</span>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.overlay {
+  background: rgba(227,227,227,0.0);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  pointer-events: none;
+
+  display: flex;
+  justify-content: space-between;
+
+  .score-ui {
+    margin-top: 5px;
+    margin-left: 15px;
+    .score-num {
+      color: red;
+    }
+  }
+
+  .warning-info {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 5px;
+    margin-right: 15px;
+  }
+}
+</style>
